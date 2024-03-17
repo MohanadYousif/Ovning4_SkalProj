@@ -57,28 +57,48 @@ namespace SkalProj_Datastrukturer_Minne
             }
         }
 
-        /// <summary>
-        /// Examines the datastructure List
-        /// </summary>
         static void ExamineList()
         {
-            /*
-             * Loop this method untill the user inputs something to exit to main menue.
-             * Create a switch statement with cases '+' and '-'
-             * '+': Add the rest of the input to the list (The user could write +Adam and "Adam" would be added to the list)
-             * '-': Remove the rest of the input from the list (The user could write -Adam and "Adam" would be removed from the list)
-             * In both cases, look at the count and capacity of the list
-             * As a default case, tell them to use only + or -
-             * Below you can see some inspirational code to begin working.
-            */
+            // Initialize a new List<string> to store items
+            List<string> theList = new List<string>();
 
-            //List<string> theList = new List<string>();
-            //string input = Console.ReadLine();
-            //char nav = input[0];
-            //string value = input.substring(1);
+            // Loop until user decides to exit
+            while (true)
+            {
+                // Prompt user to input either '+' to add or '-' to remove an item
+                Console.WriteLine("Please input either '+' to add an item or '-' to remove an item from the list:");
+                string input = Console.ReadLine();
+                char nav = input[0]; // Extract the first character from the input
+                string value = input.Substring(1); // Extract the rest of the input after the first character
 
-            //switch(nav){...}
+                // Switch statement to handle adding or removing items based on user input
+                switch (nav)
+                {
+                    case '+': // If user wants to add an item
+                        theList.Add(value); // Add the item to the list
+                        Console.WriteLine($"Item '{value}' added to the list.");
+                        break;
+                    case '-': // If user wants to remove an item
+                        if (theList.Contains(value)) // Check if the item exists in the list
+                        {
+                            theList.Remove(value); // Remove the item from the list
+                            Console.WriteLine($"Item '{value}' removed from the list.");
+                        }
+                        else // If the item does not exist in the list
+                        {
+                            Console.WriteLine($"Item '{value}' not found in the list.");
+                        }
+                        break;
+                    default: // If user input is not recognized
+                        Console.WriteLine("Please use only '+' to add or '-' to remove an item.");
+                        break;
+                }
+
+                // Print count and capacity of the list after each operation
+                Console.WriteLine($"List count: {theList.Count}, List capacity: {theList.Capacity}");
+            }
         }
+
 
         /// <summary>
         /// Examines the datastructure Queue
