@@ -96,21 +96,56 @@ namespace SkalProj_Datastrukturer_Minne
 
                 // Print count and capacity of the list after each operation
                 Console.WriteLine($"List count: {theList.Count}, List capacity: {theList.Capacity}");
+                Console.WriteLine($"Press x if you want to go to main menu");
+                if (Console.ReadLine().ToLower() == "x") break;
             }
         }
 
 
-        /// <summary>
-        /// Examines the datastructure Queue
-        /// </summary>
         static void ExamineQueue()
         {
-            /*
-             * Loop this method untill the user inputs something to exit to main menue.
-             * Create a switch with cases to enqueue items or dequeue items
-             * Make sure to look at the queue after Enqueueing and Dequeueing to see how it behaves
-            */
+            // Initialize a new Queue<string> to simulate a queue
+            Queue<string> theQueue = new Queue<string>();
+
+            // Loop until user decides to exit
+            while (true)
+            {
+                // Prompt user to input either '+' to enqueue or '-' to dequeue an item
+                Console.WriteLine("Please input either '+' to enqueue an item or '-' to dequeue an item from the queue:");
+                string input = Console.ReadLine();
+                char nav = input[0]; // Extract the first character from the input
+                string value = input.Substring(1); // Extract the rest of the input after the first character
+
+                // Switch statement to handle enqueuing or dequeuing items based on user input
+                switch (nav)
+                {
+                    case '+': // If user wants to enqueue an item
+                        theQueue.Enqueue(value); // Enqueue the item to the queue
+                        Console.WriteLine($"Item '{value}' enqueued.");
+                        break;
+                    case '-': // If user wants to dequeue an item
+                        if (theQueue.Count > 0) // Check if the queue is not empty
+                        {
+                            string dequeuedItem = theQueue.Dequeue(); // Dequeue the item from the queue
+                            Console.WriteLine($"Item '{dequeuedItem}' dequeued.");
+                        }
+                        else // If the queue is empty
+                        {
+                            Console.WriteLine("Queue is empty.");
+                        }
+                        break;
+                    default: // If user input is not recognized
+                        Console.WriteLine("Please use only '+' to enqueue or '-' to dequeue an item.");
+                        break;
+                }
+
+                // Print the current state of the queue after each operation
+                Console.WriteLine($"Queue count: {theQueue.Count}, and contents: {string.Join(", ", theQueue)}");
+                Console.WriteLine($"Press x if you want to go to main menu");
+                if(Console.ReadLine().ToLower() == "x") break;
+            }
         }
+
 
         /// <summary>
         /// Examines the datastructure Stack
