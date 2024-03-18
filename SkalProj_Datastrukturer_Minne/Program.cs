@@ -142,32 +142,105 @@ namespace SkalProj_Datastrukturer_Minne
                 // Print the current state of the queue after each operation
                 Console.WriteLine($"Queue count: {theQueue.Count}, and contents: {string.Join(", ", theQueue)}");
                 Console.WriteLine($"Press x if you want to go to main menu");
-                if(Console.ReadLine().ToLower() == "x") break;
+                if (Console.ReadLine().ToLower() == "x") break;
             }
         }
 
 
-        /// <summary>
-        /// Examines the datastructure Stack
-        /// </summary>
         static void ExamineStack()
         {
-            /*
-             * Loop this method until the user inputs something to exit to main menue.
-             * Create a switch with cases to push or pop items
-             * Make sure to look at the stack after pushing and and poping to see how it behaves
-            */
+            // Initialize a new Stack<string> to simulate a stack
+            Stack<string> theStack = new Stack<string>();
+
+            // Loop until user decides to exit
+            while (true)
+            {
+                // Prompt user to input either '+' to push or '-' to pop an item
+                Console.WriteLine("Please input either '+' to push an item or '-' to pop an item from the stack:");
+                string input = Console.ReadLine();
+                char nav = input[0]; // Extract the first character from the input
+                string value = input.Substring(1); // Extract the rest of the input after the first character
+
+                // Switch statement to handle pushing or popping items based on user input
+                switch (nav)
+                {
+                    case '+': // If user wants to push an item
+                        theStack.Push(value); // Push the item onto the stack
+                        Console.WriteLine($"Item '{value}' pushed onto the stack.");
+                        break;
+                    case '-': // If user wants to pop an item
+                        if (theStack.Count > 0) // Check if the stack is not empty
+                        {
+                            string poppedItem = theStack.Pop(); // Pop the item from the stack
+                            Console.WriteLine($"Item '{poppedItem}' popped from the stack.");
+                        }
+                        else // If the stack is empty
+                        {
+                            Console.WriteLine("Stack is empty.");
+                        }
+                        break;
+                    default: // If user input is not recognized
+                        Console.WriteLine("Please use only '+' to push or '-' to pop an item.");
+                        break;
+                }
+
+                // Print the current state of the stack after each operation
+                Console.WriteLine($"Stack count: {theStack.Count}, and contents: {string.Join(", ", theStack)}");
+                Console.WriteLine($"Press x if you want to go to main menu");
+                if (Console.ReadLine().ToLower() == "x") break;
+            }
         }
+
 
         static void CheckParanthesis()
         {
-            /*
-             * Use this method to check if the paranthesis in a string is Correct or incorrect.
-             * Example of correct: (()), {}, [({})],  List<int> list = new List<int>() { 1, 2, 3, 4 };
-             * Example of incorrect: (()]), [), {[()}],  List<int> list = new List<int>() { 1, 2, 3, 4 );
-             */
+            // Prompt the user to input a string containing parentheses
+            Console.WriteLine("Please input a string containing parentheses:");
+            string input = Console.ReadLine();
 
+            // Initialize a new Stack<char> to keep track of opening parentheses
+            Stack<char> parenthesesStack = new Stack<char>();
+
+            // Iterate through each character in the input string
+            foreach (char c in input)
+            {
+                // If the character is an opening parenthesis
+                if (c == '(' || c == '{' || c == '[')
+                {
+                    parenthesesStack.Push(c); // Push the opening parenthesis onto the stack
+                }
+                // If the character is a closing parenthesis
+                else if (c == ')' || c == '}' || c == ']')
+                {
+                    // If the stack is empty, there is an unmatched closing parenthesis
+                    if (parenthesesStack.Count == 0)
+                    {
+                        Console.WriteLine("Unmatched closing parenthesis.");
+                        return;
+                    }
+
+                    char top = parenthesesStack.Pop(); // Pop the topmost opening parenthesis from the stack
+
+                    // Check if the closing parenthesis matches the corresponding opening parenthesis
+                    if ((c == ')' && top != '(') || (c == '}' && top != '{') || (c == ']' && top != '['))
+                    {
+                        Console.WriteLine("Unmatched parenthesis.");
+                        return;
+                    }
+                }
+            }
+
+            // If the stack is not empty, there are unmatched opening parentheses
+            if (parenthesesStack.Count > 0)
+            {
+                Console.WriteLine("Unmatched opening parenthesis.");
+            }
+            else // Otherwise, all parentheses are balanced
+            {
+                Console.WriteLine("Parentheses are balanced.");
+            }
         }
+
 
     }
 }
